@@ -1,15 +1,22 @@
-import Navbar from "./components/navbar";
-import { MotionDiv } from "./components/motion";
-import Hero from "./components/hero";
-import FeaturesSection from "./components/features";
+import { Navbar } from "./components/Navbar";
+import Hero from "./components/Hero";
+import FeaturesSection from "./components/Features";
 
 export default function Home() {
   return (
-    <MotionDiv
-    className="relative w-full h-auto">
-      <Navbar />
+    <div
+    className='relative w-full h-auto'>
+      <Navbar 
+        navItems={[
+          {name: 'About',
+            link: '/',},
+          {name: 'Safety',
+          link: '/',},
+        {name: 'Contacts',
+        link: '/',}
+      ]} />
       <Hero />
       <FeaturesSection />
-    </MotionDiv>
+    </div>
   );
 }

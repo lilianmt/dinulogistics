@@ -1,12 +1,8 @@
+'use client'
 import Image from "next/image";
-import HeroImage from './public/hero-image.jpg'
-
-import {
-  MotionDiv,
-  MotionH1,
-  MotionP,
-  MotionButton
-} from "./motion";
+import HeroImage from '../../public/hero-image.jpg'
+import { Spotlight } from "./Spotlight";
+import { motion } from "framer-motion";
 
 // *****************   BACKGROUND IMAGE FUNCTION    *****************
 // function getBackgroundImage(srcSet = '') {
@@ -37,30 +33,13 @@ export default function Hero() {
   //     ))
   //   }
 
-  // *****************   BACKGROUND IMAGE FUNCTION    *****************
-  // const {
-  //   props: { srcSet },
-  // } = getImageProps ({ alt: '', src:'/hero-image.jpg', quality:100, style: { objectFit: 'cover'}, width: 1920, height:1080 })
-  // const backgroundImage  : any = getBackgroundImage(srcSet)
-  // const style = { height: '100vh', width: '100vw', backgroundImage }
-  //*****************   ADD STYLES={STYLES TO THE REQUIRED DIV}   *****************
-
   return (
     //*****************    HERO WRAPPER    *****************
-    <MotionDiv
-    className='relative h-screen z-0'>
-      {/* // *****************    HERO IMAGE WRAPPER    ******************/}
-     {/* <div
-    // className="relative"
-    // initial="hidden"
-    // whileInView="visible"
-    // viewport={{ once: true }}
-    // transition={{ duration: 2, ease: [0.15, 1, 0.90, 1] }}
-    // variants={{ 
-    // visible: { opacity: 1 },
-    // hidden: { opacity: 0 }}
-    // }
-// > */}
+    <motion.div
+    className='relative h-screen z-0 overflow-hidden'>
+    <Spotlight className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen" fill="white" />
+    <Spotlight className=" h-[80vh] w-[50vw] top-10 left-full" fill="white"/>
+    <Spotlight className="left-80 top-28 h-[80vh] w-[50vw]" fill="white" />
     <Image 
     src={ HeroImage }
     alt="Hero image"
@@ -73,16 +52,15 @@ export default function Hero() {
       objectFit: 'cover',
     }}
     />
-    <div className="absolute inset-0 bg-black opacity-15"></div>
-  {/* </div> */}
+    <div className="absolute inset-0 bg-black opacity-35"></div>
 
       {/* //*****************    HERO CONTENT WRAPPER    ***************** */}
-      <MotionDiv className="relative z-10 flex flex-col items-start justify-top h-full text-left text-gray-100 p-[150px] gap-5">
-        <MotionH1 className="text-7xl font-bold mt-[3rem] max-w-[50vw] tracking-tight text-gray-100">
+      <motion.div className="relative z-10 flex flex-col items-start justify-top h-full text-left text-gray-100 p-[150px] gap-5">
+        <motion.h1 className="text-7xl font-bold mt-[3rem] max-w-[50vw] tracking-tight text-gray-100">
           {/* {splitHeadlineWords("Reliable logistics for timely truck deliveries")} */}
           Reliable logistics for timely truck deliveries
-        </MotionH1>
-        <MotionP
+        </motion.h1>
+        <motion.p
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1, ease: [0.37, 0, 0.63, 1] }}
@@ -92,17 +70,17 @@ export default function Hero() {
           your cargo reaches its destination safely, on time, and without
           hassle, providing you peace of mind and efficient transport every step
           of the way
-        </MotionP>
-        <MotionButton
+        </motion.p>
+        <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 2, ease: [0.37, 0, 0.63, 1] }}
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 mt-3 bg-gray-900 rounded-lg text-lg hover:bg-gray-800 transition hover:ease-in-out duration-10"
+          className="px-6 py-3 mt-3 border border-white rounded-2xl text-white text-lg hover:bg-brand-900 hover:border-brand-900 transition hover:ease-in-out"
         >
           Get a Quote
-        </MotionButton>
-      </MotionDiv>
-    </MotionDiv>
+        </motion.button>
+      </motion.div>
+    </motion.div>
   );
 }
