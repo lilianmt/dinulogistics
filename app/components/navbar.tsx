@@ -1,11 +1,12 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, easeInOut } from "framer-motion";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { FiSmartphone } from "react-icons/fi";
 import Image from "next/image";
 import Logo from "@/public/dinu-logistics-logo.png";
+import { Button } from "./ui/MovingBorder";
 
 export const Navbar = ({
   navItems,
@@ -20,26 +21,35 @@ export const Navbar = ({
 }) => {
   const { scrollYProgress } = useScroll();
 
-  const [visible, setVisible] = useState(true);
-  const [background, setBackground] = useState('transparent')
-  const [backdrop, setBackdrop] = useState('none');
+  const [navState, setNavState] = useState({
+    visible: true,
+    background: 'transparent',
+    backdrop: 'none',
+  })
 
   useMotionValueEvent(scrollYProgress, 'change', (current) => {
     // Check if current is not undefined and is a number
     if (typeof current === 'number') {
       let direction = current - scrollYProgress.getPrevious()!;
 
-      if (scrollYProgress.get() < 0.05) {
-        setVisible(true);
-        setBackground('transparent');
-        setBackdrop('none');
+      if (scrollYProgress.get() < 0.03) {
+        setNavState({
+          visible: true,
+          background: 'transparent',
+          backdrop: 'none',
+        });
       } else {
         if (direction < 0) {
-          setVisible(true);
-          setBackground('rgba(0, 0, 0, 0.08)');
-          setBackdrop('blur(5px)');
+          setNavState({
+            visible: true,
+            background: 'rgba(0, 0, 0, 0.08)',
+            backdrop: 'blur(5px)',
+          });
         } else {
-          setVisible(false);
+          setNavState((prevState) => ({
+            ...prevState,
+            visible: false
+          }));
         }
       }
     }
@@ -48,8 +58,11 @@ export const Navbar = ({
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) {
-        setBackground('transparent');
-        setBackdrop('none');
+        setNavState({
+          visible: true,
+          background: 'transparent',
+          backdrop: 'none',
+        });
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -65,17 +78,20 @@ export const Navbar = ({
                 y: -100,
             }}
             animate={{
-                y: visible ? 0 : -100,
-                opacity: visible ? 1 : 0,
-                backgroundColor: background,
-                backdropFilter: backdrop,
+                y: navState.visible ? 0 : -100,
+              opacity: navState.visible ? 1 : 0,
+              backgroundColor: navState.background,
+              backdropFilter: navState.backdrop,
             }}
             transition={{
-                duration: 0.5,
-                ease: 'easeInOut'
+                duration: 3,
+                ease: [0.22, 1, 0.36, 1],
+                type: 'spring',
+                stiffness: 150,
+                damping: 15  
             }}
             className={cn(
-                'fixed flex w-screen top-0 z-10 items-center justify-between px-[10vw] py-3',
+                'fixed flex w-screen top-0 z-10 items-center justify-between px-[9vw] py-4',
                 className
             )}
             style={{ transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease' }}
@@ -89,13 +105,14 @@ export const Navbar = ({
             />
 
             {/* *****************   Links    ***************** */}
-            <motion.div className='flex items-center justify-end gap-10'>
+            <motion.div 
+            className='flex items-center justify-end gap-10'>
               {navItems.map((navItem: any, idx: number) => (
               <Link
                   key={`link=${idx}`}
                   href={navItem.link}
                   className={cn(
-                      'items-center flex gap-30 p-1 text-white hover:border-b-[2px]'
+                      'items-center flex gap-30 p-1 text-white hover:border-b-[1px]'
                   )}
               >
                   <span className='block sm:hidden'>{navItem.icon}</span>
@@ -104,7 +121,9 @@ export const Navbar = ({
               ))}
               
               {/* *****************   Button    ***************** */}
-              <motion.button className='flex items-center px-4 py-2.5 gap-2 border border-white rounded-2xl text-white transition hover:ease-in-out hover:bg-brand-900 hover:border-brand-900'
+              <motion.button
+                whileTap={{ scale: 0.75, transition: {type: 'intertia'} }}
+                className='box-border flex items-center px-4 py-2.5 gap-2 border border-white  rounded-[1.2rem] text-white transition hover:ease-in-out hover:backdrop-blur-[1px] hover:bg-brand-100 hover:bg-opacity-10 hover:shadow-md'
               >
                   <FiSmartphone className='h-5 w-5'/>
                   <motion.span className='text-nowrap'>800 800 9080</motion.span>

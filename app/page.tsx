@@ -5,7 +5,7 @@ import FeaturesSection from "./components/Features";
 export default function Home() {
   return (
     <div
-    className='relative w-full h-auto'>
+    className='relative w-full h-auto bg-black'>
       <Navbar 
         navItems={[
           {name: 'About',
