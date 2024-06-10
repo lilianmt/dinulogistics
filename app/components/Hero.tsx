@@ -1,20 +1,20 @@
 'use client'
 import Image from "next/image";
 import HeroImage from '../../public/hero-image.jpg'
-import { Spotlight } from "./Spotlight";
+import { Spotlight } from "./ui/Spotlight";
 import { easeInOut, motion } from "framer-motion";
-import { Button } from "./ui/MovingBorder";
+import { HiOutlineLightningBolt } from "react-icons/hi";
+
 // ****************************************************************
 
-export default function Hero() {
+const Hero = () => {
 
   return (
     //*****************    HERO WRAPPER    *****************
-    <motion.div
-    className='relative h-screen z-0 overflow-hidden'>
-    <Spotlight className='-top-40 -left-10 md:-left-32 md:-top-20 h-screen' fill='white' />
-    <Spotlight className=' h-[80vh] w-[50vw] top-10 left-full' fill='white'/>
-    <Spotlight className='left-80 top-28 h-[80vh] w-[150vw]' fill='white' />
+    <motion.div className='relative w-full h-screen z-0'>
+    <Spotlight className='left-80 top-28 h-[80vh] w-[150vw]' fill='#99E0FF' />
+    <Spotlight className='-top-20 -left-10 md:-left-32 md:-top-20 h-screen' fill='#99E0FF' />
+
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -27,6 +27,7 @@ export default function Hero() {
       quality={100}
       fill
       sizes='100vw'
+      objectPosition="top"
       priority
       style={{ 
         objectFit: 'cover',
@@ -34,28 +35,40 @@ export default function Hero() {
       />
     </motion.div>
 
-    <div className='absolute w-full h-full  bg-black opacity-5'></div>
-    <div className='absolute w-full h-full' style={{ background: 'radial-gradient(ellipse 500% 75% at 50% 100%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%)' }}></div>
-    
+    <div className='absolute w-full h-full  bg-black opacity-15'></div>
+    <div className='absolute w-full h-full' style={{ background: 'radial-gradient(ellipse 500% 60% at 50% 100%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 120%)'}}></div>
 
       {/* //*****************    HERO CONTENT WRAPPER    ***************** */}
-      <motion.div className='relative z-10 flex flex-col items-start lg:items-center justify-between h-full text-left text-gray-100 px-[8vw] py-[15vh] gap-5'>
+      <motion.div className='relative z-10 flex flex-col items-center justify-center h-full gap-8 '>
+      <motion.div className="flex flex-col relative items-center justify-center gap-4">
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            duration:  0.3,
+            delay: 0.2,
+            ease: easeInOut,
+            type: 'spring',
+            stiffness: 150,
+            damping: 15 }}
+          className='uppercase tracking-widest md:w-[840px] lg:w-[1040px] text-sm text-center text-prime-200 font-normal leading-relaxed md:leading-normal lg:leading-normal'
+        >
+          Expert Logistics solutions
+        </motion.p>
 
         <motion.h1
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ 
-          duration: 2.3, 
+          duration: 2, 
           ease: easeInOut,
           type: 'spring',
           stiffness: 150,
           damping: 15  }}
-        className='text-7xl md:text-8xl lg:text-[124px] text-left lg:text-center font-bold pt-[3rem] max-w-[80vw] lg:max-w-[80vw] tracking-tight bg-clip-text text-transparent'
-        style={{
-          backgroundImage:'linear-gradient(to top left, #FFF 20%, var(--brand-400)40%, var(--brand-300) 45%, var(--brand-200) 50%, var(--brand-300) 55%, var(--brand-100) 80%, #FFF 90%)',
-        }}
-        > 
-          Reliable logistics for timely truck deliveries
+        className='w-auto text-7xl sm:text-8xl text-center md:text-[84px] lg:text-[105px] text-white font-bold sm:w-[600px] md:w-[900px] lg:w-[1040px]'
+        >
+          Reliable and timely 
+          <motion.span className="text-prime-200"> truck deliveries</motion.span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 25 }}
@@ -67,60 +80,34 @@ export default function Hero() {
             type: 'spring',
             stiffness: 150,
             damping: 15 }}
-          className='max-w-[50vw] text-xl py-3 font-normal leading-[2rem] '
+          className='text-xl tracking-tight w-[500px] px-12 sm:text-2xl sm:w-[640px] md:text-2xl md:w-[740px] lg:w-[960px] py-3 text-center text-white text-opacity-85 font-light leading-relaxed md:leading-normal lg:leading-tight'
         >
           With our expert brokerage services, we manage every detail to ensure
           your cargo reaches its destination safely, on time, and without
           hassle, providing you peace of mind and efficient transport every step
-          of the way
+          of the way.
         </motion.p>
-        <Button 
-          borderRadius="1rem"
-        >
-         Get a Quote
-        </Button>
-        {/* <motion.button
+        </motion.div>
+        <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ 
-            duration: 0.3, 
-            delay: 0.5, 
+            duration:  0.6,
+            delay: 0.4,
             ease: easeInOut,
-            type: 'spring',
-            stiffness: 150,
-            damping: 15  }}
-          className='px-6 py-3 mt-3 border border-white rounded-2xl text-white text-lg hover:bg-brand-500 hover:border-brand-500 transition hover:ease-in-out'
-        >
+          }}
+          className="group relative flex items-center px-6 py-3 gap-2 bg-transparent no-underline border border-white rounded-xl font-normal text-lg text-white tracking-wider backdrop-blur-sm transition ease-in-out hover:transition hover:ease-in-out hover:text-prime-200 hover:border-prime-400 hover:border-opacity-50  hover:backdrop-blur-lg">
+          <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
+            <motion.span className="absolute inset-0 rounded-xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          </motion.span>
+         <HiOutlineLightningBolt />
+         <motion.span>
           Get a Quote
-        </motion.button> */}
-
-{/* <button className="bg-transparent no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6  text-white inline-block">
-  <span className="absolute inset-0 overflow-hidden rounded-full">
-    <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-  </span>
-  <div className="relative flex space-x-2 items-center z-10 rounded-full bg-transparent-950 py-0.5 px-4 ring-1 transparent/10 ">
-    <span>
-      Get a quote
-    </span>
-    <svg
-      fill="none"
-      height="16"
-      viewBox="0 0 24 24"
-      width="16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10.75 8.75L14.25 12L10.75 15.25"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-    </svg>
-  </div>
-  <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
-</button> */}
+         </motion.span>
+        </motion.button> 
       </motion.div>
     </motion.div>
   );
 }
+
+export default Hero;

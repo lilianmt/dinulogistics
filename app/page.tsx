@@ -1,11 +1,12 @@
 import { Navbar } from "./components/Navbar";
 import Hero from "./components/Hero";
-import FeaturesSection from "./components/Features";
+import Features from "./components/Features";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div
-    className='relative w-full h-auto bg-black'>
+    <main className='relative justify-between items-center w-full h-full bg-black overflow-hidden'>
+      <nav className="fixed z-10 flex flex-col w-full items-center">
       <Navbar 
         navItems={[
           {name: 'About',
@@ -14,9 +15,11 @@ export default function Home() {
           link: '/',},
         {name: 'Contacts',
         link: '/',}
-      ]} />
+        ]}
+      />
+      </nav>
       <Hero />
-      <FeaturesSection />
-    </div>
+      <Features />
+    </main>
   );
 }

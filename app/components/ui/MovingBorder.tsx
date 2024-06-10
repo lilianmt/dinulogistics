@@ -32,20 +32,19 @@ export function Button({
 }) {
   return (
     <motion.div
-    initial={{ opacity: 0, y: 50 }}
+    initial={{ opacity: 0, y: 1500 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ 
-      duration: 0.3,
-      delay: 0.3, 
+      duration: 0.1,
       ease: 'easeInOut',
       type: 'spring',
       stiffness:100,
-      damping: 10
+      damping: 18
       }}
     >
     <Component
         className={cn(
-            'bg-brand-900  relative text-xl h-14 w-40 overflow-hidden ',
+            'bg-brand-100 relative text-xl h-14 w-40 overflow-hidden ',
             containerClassName
         )}
         style={{
@@ -68,9 +67,8 @@ export function Button({
         </motion.div>
 
         <motion.div
-
             className={cn(
-            'relative bg-brand-500 bg-opacity-5 border border-brand-400 border-opacity-0 backdrop-blur-2xl backdrop-brightness-20 text-brand-300 flex items-center justify-center w-full h-full text-lg antialiased hover:bg-100 hover:bg-opacity-20 hover:text-brand-100 hover:border-opacity-15 transition hover:ease-in-out',
+            '',
             className
             )}
             style={{
