@@ -110,13 +110,17 @@ const Hero = () => {
             delay: 0.4,
             ease: easeInOut,
           }}
-          className="group flex items-center justify-center h-[4rem] w-[12rem] gap-2 bg-transparent outline-none rounded-2xl border border-white font-medium text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400 hover:border-opacity-50 hover:backdrop-blur-lg focus:scale-[1.05] hover:scale-[1.05] active:scale-[1.05]"
+          className="group relative flex items-center justify-center h-[4rem] w-[12rem] gap-2 bg-transparent outline-none rounded-2xl border border-white font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:backdrop-blur-lg  hover:rounded-3xl ] active:rounded-3xl will-change-transform origin-center;"
+          style={{ backfaceVisibility: 'hidden' }}
         >
           <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
             <motion.span className="absolute inset-0 rounded-2xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </motion.span>
-          <HiOutlineLightningBolt className="h-6 w-6 group-hover:text-prime-300 group-hover:text-shadow-white" />
-          <motion.span className="relative text-white group-hover:text-shadow-white">
+          <HiOutlineLightningBolt className="h-6 w-6 group-hover:text-prime-300" />
+          <motion.span
+            className="relative text-white group-hover:text-shadow-white will-change-transform"
+            style={{ textRendering: 'optimizeLegibility' }}
+          >
             Get a Quote
           </motion.span>
         </motion.button>

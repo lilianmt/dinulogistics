@@ -134,7 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
           damping: 14,
         }}
         className={cn(
-          'fixed z-[200] w-[90vw] flex justify-between items-center rounded-2xl top-6 px-10 py-5 sm:top-6 sm:px-15 sm:py-5 sm:mx-5 md:py-5 md:top-6 md:px-15 lg:w-[65vw] overflow-hidden',
+          'fixed z-[200] w-[90vw] flex justify-between items-center rounded-2xl top-6 px-10 py-5 sm:top-6 sm:px-15 sm:py-5 sm:mx-5 md:py-5 md:top-6 md:px-15 lg:w-[75vw] overflow-hidden ',
           className
         )}
         style={{
@@ -153,13 +153,13 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
         />
 
         {/* Links */}
-        <motion.div className="hidden md:flex w-2/3 items-center justify-end space-x-8 text-base font-normal tracking-widest">
+        <motion.div className="hidden md:flex w-2/3 items-center justify-end space-x-16 text-base font-light tracking-widest">
           {navItems.map((navItem, idx) => (
             <Link
               key={`link=${idx}`}
               href={navItem.link}
               className={cn(
-                'flex text-white pb-1 hover:text-prime-500 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-300'
+                'flex text-white py-3 transition-all ease-in-out duration-50 hover:text-prime-500 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-300'
               )}
             >
               <motion.span className="hidden md:block text-md">
@@ -171,19 +171,17 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
           {/* Button */}
 
           <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 0.6,
-              ease: easeInOut,
-            }}
-            className="group flex items-center px-4 py-4 gap-2 bg-transparent no-underline outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all ease-in-out hover:text-prime-200 hover:border-prime-400 hover:border-opacity-50 hover:backdrop-blur-lg focus:scale-[1.05] hover:scale-[1.05] active:scale-[1.05]"
+            className="group relative flex items-center justify-center py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+            style={{ backfaceVisibility: 'hidden' }}
           >
             <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
-              <motion.span className="absolute inset-0 rounded-xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <motion.span className="absolute inset-0 rounded-2xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </motion.span>
-            <FiSmartphone className="h-6 w-6 group-hover:text-prime-300 group-hover:text-shadow-white" />
-            <motion.span className="relative text-nowrap text-white group-hover:text-shadow-white">
+            <FiSmartphone className="h-6 w-6 group-hover:text-prime-300" />
+            <motion.span
+              className="relative text-nowrap text-white group-hover:text-shadow-white will-change-transform"
+              style={{ textRendering: 'optimizeLegibility' }}
+            >
               800 800 9080
             </motion.span>
           </motion.button>
@@ -208,18 +206,18 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, x: 200, y: 9, scale: 0.8 }}
+            initial={{ opacity: 0, x: 200, y: 9, scale: 0.4 }}
             animate={{ opacity: 1, x: 0, y: 9, scale: 1 }}
-            exit={{ opacity: 0, x: 200, y: 9, scale: 0.8 }}
+            exit={{ opacity: 0, x: 200, y: 9, scale: 0.4 }}
             transition={{
-              duration: 3,
+              duration: 5,
               ease: [0.22, 1, 0.36, 1],
               type: 'spring',
               stiffness: 80,
               damping: 8,
               mass: 0.5,
             }}
-            className="absolute z-[400] w-contain h-contain items-center px-20 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[79px] hover:border border-white/35 hover:border-prime-200/20"
+            className="absolute z-[400] w-contain h-contain items-center px-16 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[63px] hover:border border-white/35 hover:border-prime-200/20"
           >
             <BackgroundGradientAnimation />
             {navItems.map((navItem, idx) => (
@@ -227,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
                 key={`mobile-link=${idx}`}
                 href={navItem.link}
                 className={cn(
-                  'flex flex-col items-center uppercase tracking-wider font-normal text-base py-8 border-b border-prime-100/50 hover:border-prime-100/75 hover:text-shadow-white'
+                  'flex flex-col items-center uppercase tracking-wider font-normal text-base py-8 border-b transition-all border-prime-100/50 hover:border-prime-100 hover:text-shadow-white'
                 )}
                 onClick={() => setOpen(false)}
               >
@@ -235,19 +233,17 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
               </Link>
             ))}
             <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                duration: 0.1,
-                ease: easeInOut,
-              }}
-              className="group flex items-center mt-12 mb-6 px-4 py-4 gap-2 bg-transparent no-underline outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all ease-in-out hover:text-prime-200 hover:border-prime-400 hover:border-opacity-50 hover:backdrop-blur-lg focus:scale-[1.05] hover:scale-[1.05] active:scale-[1.05]"
+              className="group relative flex items-center justify-center mt-12 mb-6 h-[4rem] w-[13rem] gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+              style={{ backfaceVisibility: 'hidden' }}
             >
               <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
-                <motion.span className="absolute inset-0 rounded-xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <motion.span className="absolute inset-0 rounded-2xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </motion.span>
-              <FiSmartphone className="h-6 w-6 group-hover:text-shadow-white" />
-              <motion.span className="relative text-nowrap text-white group-hover:text-shadow-white">
+              <FiSmartphone className="h-6 w-6 group-hover:text-prime-300" />
+              <motion.span
+                className="relative text-white group-hover:text-shadow-white will-change-transform"
+                style={{ textRendering: 'optimizeLegibility' }}
+              >
                 800 800 9080
               </motion.span>
             </motion.button>

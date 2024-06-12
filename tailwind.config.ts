@@ -234,7 +234,7 @@ const config = {
           'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
       },
       textShadow: {
-        white: '0 0 20px rgba(255, 255, 255, 1)',
+        white: '0 0 20px rgba(190, 234, 255, 1)',
       },
     },
   },
