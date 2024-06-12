@@ -256,7 +256,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
               damping: 8,
               mass: 0.5,
             }}
-            className="absolute z-[400] w-contain h-contain items-center px-16 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[63px] hover:border border-white/35 hover:border-prime-200/20"
+            className="absolute z-[400] w-contain h-contain items-center px-14 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[63px] hover:border border-white/35 hover:border-prime-200/20"
             style={{
               right: `calc(100vw + 2rem - ${menuPosition}px)`,
             }}
@@ -267,7 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
                 key={`mobile-link=${idx}`}
                 href={navItem.link}
                 className={cn(
-                  'flex flex-col items-center uppercase tracking-wider font-normal text-base py-8 border-b transition-all border-prime-100/50 hover:border-prime-100 hover:text-shadow-white'
+                  'flex flex-col items-center tracking-wider font-normal text-lg py-8 border-b transition-all border-prime-100/50 hover:border-prime-100 hover:text-shadow-white'
                 )}
                 onClick={() => setOpen(false)}
               >
@@ -275,7 +275,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
               </Link>
             ))}
             <motion.button
-              className="group relative flex items-center justify-center mt-12 mb-6 h-[4rem] w-[13rem] gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+              className="group relative flex items-center justify-center mt-12 mb-6 py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
