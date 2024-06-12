@@ -1,11 +1,10 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
-  easeInOut,
 } from 'framer-motion';
 import { cn } from '@/utils/cn';
 import Link from 'next/link';
@@ -45,7 +44,6 @@ const transition = {
 
 export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
   const { scrollYProgress } = useScroll();
-
   const [navState, setNavState] = useState<NavState>({
     visible: true,
     background: 'transparent',
@@ -55,6 +53,46 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
 
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((prev) => !prev);
+
+  const hamburgerRef = useRef<HTMLButtonElement | null>(null);
+  const [menuPosition, setMenuPosition] = useState<number>(0);
+
+  const updateMenuPosition = useCallback(() => {
+    if (hamburgerRef.current) {
+      const rect = hamburgerRef.current.getBoundingClientRect();
+      setMenuPosition(rect.right);
+    }
+  }, []);
+
+  useEffect(() => {
+    updateMenuPosition();
+    window.addEventListener('resize', updateMenuPosition);
+    return () => window.removeEventListener('resize', updateMenuPosition);
+  }, [updateMenuPosition]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        hamburgerRef.current &&
+        !hamburgerRef.current.contains(event.target as Node) &&
+        open
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (hamburgerRef.current) {
+      const rect = hamburgerRef.current.getBoundingClientRect();
+      setMenuPosition(rect.right);
+    }
+  }, [open]);
 
   useMotionValueEvent(scrollYProgress, 'change', (current) => {
     if (typeof current === 'number') {
@@ -190,6 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
         {/* Hamburger Menu Icon */}
         <motion.div className="md:hidden">
           <motion.button
+            ref={hamburgerRef}
             onClick={toggleOpen}
             className="text-white transition-all ease-in-out duration-10 hover:text-prime-200 hover:scale-110"
           >
@@ -218,6 +257,9 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
               mass: 0.5,
             }}
             className="absolute z-[400] w-contain h-contain items-center px-16 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[63px] hover:border border-white/35 hover:border-prime-200/20"
+            style={{
+              right: `calc(100vw + 2rem - ${menuPosition}px)`,
+            }}
           >
             <BackgroundGradientAnimation />
             {navItems.map((navItem, idx) => (
