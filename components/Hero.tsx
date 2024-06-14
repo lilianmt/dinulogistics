@@ -9,9 +9,14 @@ import { useSectionInView } from '@/lib/hooks';
 // ****************************************************************
 
 const Hero = () => {
+  const { ref } = useSectionInView('Home');
   return (
     //*****************    HERO WRAPPER    *****************
-    <motion.div className="relative w-full h-screen z-0">
+    <motion.section
+      ref={ref}
+      id="home"
+      className="relative w-full h-screen z-0"
+    >
       <Spotlight className="left-80 top-28 h-[80vh] w-[150vw]" fill="#99E0FF" />
       <Spotlight
         className="-top-20 -left-10 md:-left-32 md:-top-20 h-screen"
@@ -103,6 +108,8 @@ const Hero = () => {
             step of the way.
           </motion.p>
         </motion.div>
+
+        {/* //*****************    BUTTON    ***************** */}
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -111,7 +118,7 @@ const Hero = () => {
             delay: 0.4,
             ease: easeInOut,
           }}
-          className="group relative flex items-center justify-center h-[4rem] w-[12rem] gap-2 bg-transparent outline-none rounded-2xl border border-white font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:backdrop-blur-lg  hover:rounded-3xl ] active:rounded-3xl will-change-transform origin-center;"
+          className="group relative flex items-center justify-center h-[4rem] w-[12rem] gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:backdrop-blur-lg  hover:rounded-3xl ] active:rounded-3xl will-change-transform origin-center;"
           style={{ backfaceVisibility: 'hidden' }}
         >
           <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
@@ -126,7 +133,7 @@ const Hero = () => {
           </motion.span>
         </motion.button>
       </motion.div>
-    </motion.div>
+    </motion.section>
   );
 };
 

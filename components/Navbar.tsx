@@ -23,16 +23,16 @@ import { TbMenuDeep } from 'react-icons/tb';
 import { BackgroundGradientAnimation } from './ui/BackgroundGradient';
 import { useActiveSectionContext } from '@/context/active-section-context';
 
-interface NavItem {
-  name: string;
-  link: string;
-  icon?: JSX.Element;
-}
+// interface NavItem {
+//   name: string;
+//   link: string;
+//   icon?: JSX.Element;
+// }
 
-interface NavbarProps {
-  navItems: NavItem[];
-  className?: string;
-}
+// interface NavbarProps {
+//   navItems: NavItem[];
+//   className?: string;
+// }
 
 interface NavState {
   visible: boolean;
@@ -41,16 +41,16 @@ interface NavState {
   shadow: string;
 }
 
-const transition = {
-  type: 'spring',
-  mass: 0.5,
-  damping: 11.5,
-  stiffness: 100,
-  restDelta: 0.001,
-  restSpeed: 0.001,
-};
+// const transition = {
+//   type: 'spring',
+//   mass: 0.5,
+//   damping: 11.5,
+//   stiffness: 100,
+//   restDelta: 0.001,
+//   restSpeed: 0.001,
+// };
 
-export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
+export default function Navbar() {
   const { scrollYProgress } = useScroll();
   const [navState, setNavState] = useState<NavState>({
     visible: true,
@@ -163,7 +163,6 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
 
   return (
     <AnimatePresence>
-      fixed z-[999] flex flex-col w-full items-center
       <motion.header
         initial={{
           opacity: 1,
@@ -183,67 +182,61 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
           stiffness: 100,
           damping: 14,
         }}
-        className={cn(
-          'fixed z-[200] w-full flex justify-between items-center rounded-2xl top-6 px-10 py-5 sm:top-6 sm:px-15 sm:py-5 sm:mx-5 md:py-5 md:top-6 md:px-15 lg:w-[75vw] overflow-hidden ',
-          className
-        )}
+        className="fixed z-[200] w-full flex flex-row justify-between items-center rounded-2xl top-6 px-10 py-5 sm:top-6 sm:px-15 sm:py-5 sm:mx-5 md:py-5 md:top-6 md:px-15 lg:w-[75vw] overflow-hidden "
         style={{
           transition: 'background-color 0.5s ease, backdrop-filter 0.5s ease',
         }}
       >
-        {/* Logo */}
-        <Image
-          src={Logo}
-          alt="Dinu Logistics logo"
-          width={150}
-          style={{
-            padding: 0,
-            margin: 0,
-          }}
-        />
+        {/************************************** Logo **************************************/}
+        <motion.a className="block" href="#home">
+          <Image src={Logo} alt="Logo" width={150} />
+        </motion.a>
 
-        <motion.nav className="hidden md:flex w-2/3 items-center justify-end text-lg font-light tracking-widest">
+        <motion.nav className="hidden md:flex-row md:flex w-2/3 items-center justify-end text-lg font-light tracking-widest">
           {/* Links */}
-          <ul className="flex flex-wrap gap-12">
-            {links.map((link) => (
-              <motion.li
-                key={link.hash}
-                className="flex items-center justify-center relative "
-              >
-                <Link
-                  href={link.hash}
-                  onClick={() => {
-                    setActiveSection(link.name);
-                    setTimeOfLastClick(Date.now());
-                  }}
-                  className={cn(
-                    'flex text-white py-3 transition-all ease-in-out duration-50 hover:text-prime-500 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-300',
-                    {
-                      'text-prime-200 font-medium': activeSection === link.name,
-                    }
-                  )}
+          <motion.ul className="flex flex-nowrap gap-12">
+            {links
+              .filter((link) => link.name !== 'Home')
+              .map((link) => (
+                <motion.li
+                  key={link.hash}
+                  className="flex items-center justify-center relative "
                 >
-                  <motion.span className="hidden md:block text-md">
-                    {link.name}
-                  </motion.span>
-                  {link.name === activeSection && (
-                    <motion.span
-                      className="text-prime-400 bg-red"
-                      layoutId="activeSection"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                    ></motion.span>
-                  )}
-                </Link>
-              </motion.li>
-            ))}
-            {/* Button */}
+                  <Link
+                    href={link.hash}
+                    onClick={() => {
+                      setActiveSection(link.name);
+                      setTimeOfLastClick(Date.now());
+                    }}
+                    className={cn(
+                      'flex text-white py-3 transition-all ease-in-out duration-50 hover:text-prime-500 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-300',
+                      {
+                        'text-prime-200 font-medium':
+                          activeSection === link.name,
+                      }
+                    )}
+                  >
+                    <motion.span className="hidden md:block text-md">
+                      {link.name}
+                    </motion.span>
+                    {link.name === activeSection && (
+                      <motion.span
+                        className="text-prime-400 bg-red"
+                        layoutId="activeSection"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      ></motion.span>
+                    )}
+                  </Link>
+                </motion.li>
+              ))}
+            {/************************************** Button **************************************/}
 
             <motion.button
-              className="group relative flex items-center justify-center py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+              className="group relative flex items-center justify-center py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-in-out duration-300 hover:text-prime-200 hover:border-white/75 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
@@ -257,10 +250,10 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
                 800 800 9080
               </motion.span>
             </motion.button>
-          </ul>
+          </motion.ul>
         </motion.nav>
 
-        {/* Hamburger Menu Icon */}
+        {/*********************************** Hamburger Icon ***********************************/}
         <motion.div className="md:hidden">
           <motion.button
             ref={hamburgerRef}
@@ -275,7 +268,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
           </motion.button>
         </motion.div>
       </motion.header>
-      {/* Mobile Menu */}
+      {/********************************* Mobile Menu **********************************/}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -290,26 +283,36 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
               damping: 8,
               mass: 0.5,
             }}
-            className="absolute z-[400] w-contain h-contain items-center px-14 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[55px] hover:border border-white/35 hover:border-prime-200/20"
+            className="absolute z-[400] w-contain h-contain items-center px-14 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-center bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[55px] hover:border border-white/25 hover:border-prime-200/20"
             style={{
               right: `calc(100vw + 2rem - ${menuPosition}px)`,
             }}
           >
             <BackgroundGradientAnimation />
-            {navItems.map((navItem, idx) => (
-              <Link
-                key={`mobile-link=${idx}`}
-                href={navItem.link}
-                className={cn(
-                  'flex flex-col items-center tracking-wider font-normal text-lg py-8 border-b transition-all border-prime-100/50 hover:border-prime-100 hover:text-shadow-white'
-                )}
-                onClick={() => setOpen(false)}
-              >
-                {navItem.name}
-              </Link>
-            ))}
+            {links
+              .filter((link) => link.name !== 'Home')
+              .map((link) => (
+                <Link
+                  key={link.hash}
+                  href={link.hash}
+                  className={cn(
+                    'flex flex-col text-white/75 items-center tracking-wider font-normal text-lg py-8 border-b transition-all border-prime-100/50 hover:text-white/1 hover:border-prime-200/100 hover:text-prime-200/100',
+                    {
+                      'text-prime-300 border-prime-300 hover:text-prime-200':
+                        activeSection === link.name,
+                    }
+                  )}
+                  onClick={() => {
+                    setActiveSection(link.name);
+                    setTimeOfLastClick(Date.now());
+                    setOpen(false);
+                  }}
+                >
+                  {link.name}
+                </Link>
+              ))}
             <motion.button
-              className="group relative flex items-center justify-center mt-12 mb-6 py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+              className="group relative flex items-center justify-center mt-12 mb-6 py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-out duration-300 hover:text-prime-200 hover:border-white/75 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
@@ -328,4 +331,4 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
       </AnimatePresence>
     </AnimatePresence>
   );
-};
+}

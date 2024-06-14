@@ -2,15 +2,19 @@ import React from 'react';
 
 export const links = [
   {
+    name: 'Home',
+    hash: '#home',
+  },
+  {
     name: 'About',
-    hash: 'about',
+    hash: '#about',
   },
   {
     name: 'Solutions',
-    hash: 'solutons',
+    hash: '#solutions',
   },
   {
     name: 'Contact',
-    hash: 'contact',
+    hash: '#contact',
   },
 ] as const;
