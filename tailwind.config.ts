@@ -7,12 +7,11 @@ const {
   default: flattenColorPalette,
 } = require('tailwindcss/lib/util/flattenColorPalette');
 
-const config = {
+const config: Config = {
   darkMde: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
   ],
   prefix: '',
@@ -240,7 +239,7 @@ const config = {
   },
   plugins: [
     require('tailwindcss-animate'),
-    require('tailwindcss-textshadow'),
+    // require('tailwindcss-textshadow'),
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
@@ -265,7 +264,7 @@ const config = {
       );
     },
   ],
-} satisfies Config;
+};
 
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme('colors'));

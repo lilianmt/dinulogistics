@@ -1,12 +1,19 @@
 'use client';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useContext,
+} from 'react';
 import {
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
 } from 'framer-motion';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
+import { links } from '@/lib/data';
 import Link from 'next/link';
 import { FiSmartphone } from 'react-icons/fi';
 import Image from 'next/image';
@@ -14,6 +21,7 @@ import Logo from '@/public/dinu-logistics-logo.png';
 import { IoClose } from 'react-icons/io5';
 import { TbMenuDeep } from 'react-icons/tb';
 import { BackgroundGradientAnimation } from './ui/BackgroundGradient';
+import { useActiveSectionContext } from '@/context/active-section-context';
 
 interface NavItem {
   name: string;
@@ -64,6 +72,9 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
     }
   }, []);
 
+  const { activeSection, setActiveSection, setTimeOfLastClick } =
+    useActiveSectionContext();
+
   useEffect(() => {
     updateMenuPosition();
     window.addEventListener('resize', updateMenuPosition);
@@ -94,39 +105,6 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
     }
   }, [open]);
 
-  useMotionValueEvent(scrollYProgress, 'change', (current) => {
-    if (typeof current === 'number') {
-      const direction = current - scrollYProgress.getPrevious()!;
-
-      if (scrollYProgress.get() < 0.01) {
-        setNavState({
-          visible: true,
-          background: 'transparent',
-          backdrop: 'none',
-          shadow: 'none',
-        });
-      } else {
-        if (direction < 0) {
-          setNavState({
-            visible: true,
-            background: 'rgba(109, 214, 255, 0.1)',
-            backdrop: 'blur(6px)',
-            shadow:
-              '0 5px 5px 5px rgb(0 0 0 / 0.05), 0 5px 80px -1px rgb(0 0 0 / 0.0.5)',
-          });
-        } else {
-          setNavState((prevState) => ({
-            ...prevState,
-            visible: false,
-          }));
-          if (open) {
-            setOpen(false);
-          }
-        }
-      }
-    }
-  });
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) {
@@ -150,9 +128,43 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [open]);
 
+  useMotionValueEvent(scrollYProgress, 'change', (current) => {
+    if (typeof current === 'number') {
+      const direction = current - scrollYProgress.getPrevious()!;
+
+      if (scrollYProgress.get() < 0.01) {
+        setNavState({
+          visible: true,
+          background: 'transparent',
+          backdrop: 'none',
+          shadow: 'none',
+        });
+      } else {
+        if (direction < 0) {
+          setNavState({
+            visible: true,
+            background: 'rgba(23, 41, 48, 0.2)',
+            backdrop: 'blur(14px)',
+            shadow:
+              '0 5px 5px 5px rgb(0 0 0 / 0.05), 0 5px 80px -1px rgb(0 0 0 / 0.0.5)',
+          });
+        } else {
+          setNavState((prevState) => ({
+            ...prevState,
+            visible: false,
+          }));
+          if (open) {
+            setOpen(false);
+          }
+        }
+      }
+    }
+  });
+
   return (
     <AnimatePresence>
-      <motion.div
+      fixed z-[999] flex flex-col w-full items-center
+      <motion.header
         initial={{
           opacity: 1,
           y: -250,
@@ -172,7 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
           damping: 14,
         }}
         className={cn(
-          'fixed z-[200] w-[90vw] flex justify-between items-center rounded-2xl top-6 px-10 py-5 sm:top-6 sm:px-15 sm:py-5 sm:mx-5 md:py-5 md:top-6 md:px-15 lg:w-[75vw] overflow-hidden ',
+          'fixed z-[200] w-full flex justify-between items-center rounded-2xl top-6 px-10 py-5 sm:top-6 sm:px-15 sm:py-5 sm:mx-5 md:py-5 md:top-6 md:px-15 lg:w-[75vw] overflow-hidden ',
           className
         )}
         style={{
@@ -190,40 +202,63 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
           }}
         />
 
-        {/* Links */}
-        <motion.div className="hidden md:flex w-2/3 items-center justify-end space-x-16 text-base font-light tracking-widest">
-          {navItems.map((navItem, idx) => (
-            <Link
-              key={`link=${idx}`}
-              href={navItem.link}
-              className={cn(
-                'flex text-white py-3 transition-all ease-in-out duration-50 hover:text-prime-500 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-300'
-              )}
+        <motion.nav className="hidden md:flex w-2/3 items-center justify-end text-lg font-light tracking-widest">
+          {/* Links */}
+          <ul className="flex flex-wrap gap-12">
+            {links.map((link) => (
+              <motion.li
+                key={link.hash}
+                className="flex items-center justify-center relative "
+              >
+                <Link
+                  href={link.hash}
+                  onClick={() => {
+                    setActiveSection(link.name);
+                    setTimeOfLastClick(Date.now());
+                  }}
+                  className={cn(
+                    'flex text-white py-3 transition-all ease-in-out duration-50 hover:text-prime-500 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-300',
+                    {
+                      'text-prime-200 font-medium': activeSection === link.name,
+                    }
+                  )}
+                >
+                  <motion.span className="hidden md:block text-md">
+                    {link.name}
+                  </motion.span>
+                  {link.name === activeSection && (
+                    <motion.span
+                      className="text-prime-400 bg-red"
+                      layoutId="activeSection"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    ></motion.span>
+                  )}
+                </Link>
+              </motion.li>
+            ))}
+            {/* Button */}
+
+            <motion.button
+              className="group relative flex items-center justify-center py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+              style={{ backfaceVisibility: 'hidden' }}
             >
-              <motion.span className="hidden md:block text-md">
-                {navItem.name}
+              <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
+                <motion.span className="absolute inset-0 rounded-2xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </motion.span>
-            </Link>
-          ))}
-
-          {/* Button */}
-
-          <motion.button
-            className="group relative flex items-center justify-center py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-base text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:border-prime-400/50 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
-            style={{ backfaceVisibility: 'hidden' }}
-          >
-            <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
-              <motion.span className="absolute inset-0 rounded-2xl bg-[image:radial-gradient(80%_60%_at_50%_0%,rgba(56,189,248,0.6)_10%,rgba(56,189,248,0)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            </motion.span>
-            <FiSmartphone className="h-6 w-6 group-hover:text-prime-300" />
-            <motion.span
-              className="relative text-nowrap text-white group-hover:text-shadow-white will-change-transform"
-              style={{ textRendering: 'optimizeLegibility' }}
-            >
-              800 800 9080
-            </motion.span>
-          </motion.button>
-        </motion.div>
+              <FiSmartphone className="h-6 w-6 group-hover:text-prime-300" />
+              <motion.span
+                className="relative text-nowrap text-white group-hover:text-shadow-white will-change-transform"
+                style={{ textRendering: 'optimizeLegibility' }}
+              >
+                800 800 9080
+              </motion.span>
+            </motion.button>
+          </ul>
+        </motion.nav>
 
         {/* Hamburger Menu Icon */}
         <motion.div className="md:hidden">
@@ -239,8 +274,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
             )}
           </motion.button>
         </motion.div>
-      </motion.div>
-
+      </motion.header>
       {/* Mobile Menu */}
       <AnimatePresence>
         {open && (
@@ -256,7 +290,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navItems, className }) => {
               damping: 8,
               mass: 0.5,
             }}
-            className="absolute z-[400] w-contain h-contain items-center px-14 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[63px] hover:border border-white/35 hover:border-prime-200/20"
+            className="absolute z-[400] w-contain h-contain items-center px-14 py-6 top-2 right-[20vw] md:hidden overflow-hidden text-white text-center  bg-prime-900/75 rounded-2xl backdrop-blur-sm hover:py-[23px] hover:px-[55px] hover:border border-white/35 hover:border-prime-200/20"
             style={{
               right: `calc(100vw + 2rem - ${menuPosition}px)`,
             }}

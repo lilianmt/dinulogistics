@@ -1,15 +1,15 @@
-import { Navbar } from '@/components/Navbar';
+'use client';
 import Hero from '@/components/Hero';
-import Features from '@/components/Features';
-import QuoteForm from '@/components/QuoteForm';
+import Solutions from '@/components/Solutions';
+import Contact from '@/components/Contact';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   return (
-    <main className="relative justify-between items-center w-full h-full bg-black overflow-hidden">
+    <motion.main className="relative justify-between items-center w-full h-full bg-black overflow-hidden">
       <Hero />
-      <QuoteForm />
-      <Features />
-    </main>
+      <Solutions />
+      <Contact />
+    </motion.main>
   );
 }

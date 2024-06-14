@@ -9,7 +9,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import { useRef } from 'react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export function Button({
   borderRadius = '1.75rem',
@@ -32,52 +32,49 @@ export function Button({
 }) {
   return (
     <motion.div
-    initial={{ opacity: 0, y: 1500 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ 
-      duration: 0.1,
-      ease: 'easeInOut',
-      type: 'spring',
-      stiffness:100,
-      damping: 18
+      initial={{ opacity: 0, y: 1500 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.1,
+        ease: 'easeInOut',
+        type: 'spring',
+        stiffness: 100,
+        damping: 18,
       }}
     >
-    <Component
+      <Component
         className={cn(
-            'bg-brand-100 relative text-xl h-14 w-40 overflow-hidden ',
-            containerClassName
+          'bg-brand-100 relative text-xl h-14 w-40 overflow-hidden ',
+          containerClassName
         )}
         style={{
-            borderRadius: borderRadius,
+          borderRadius: borderRadius,
         }}
         {...otherProps}
-        >
+      >
         <motion.div
-            className='absolute inset-0'
-            style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
+          className="absolute inset-0"
+          style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
         >
-            <MovingBorder duration={duration} rx='30%' ry='30%'>
+          <MovingBorder duration={duration} rx="30%" ry="30%">
             <motion.div
-                className={cn(
+              className={cn(
                 'h-[35px] w-[70px] opacity-[1] bg-[radial-gradient(var(--brand-100)_0%,transparent_100%)]',
                 borderClassName
-                )}
+              )}
             />
-            </MovingBorder>
+          </MovingBorder>
         </motion.div>
 
         <motion.div
-            className={cn(
-            '',
-            className
-            )}
-            style={{
+          className={cn('', className)}
+          style={{
             borderRadius: '1rem',
-            }}
+          }}
         >
-            {children}
+          {children}
         </motion.div>
-        </Component>   
+      </Component>
     </motion.div>
   );
 }
@@ -120,17 +117,17 @@ export const MovingBorder = ({
   return (
     <>
       <svg
-        xmlns='http://www.w3.org/2000/svg'
-        preserveAspectRatio='none'
-        className='absolute h-full w-full'
-        width='100%'
-        height='100%'
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        className="absolute h-full w-full"
+        width="100%"
+        height="100%"
         {...otherProps}
       >
         <rect
-          fill='none'
-          width='100%'
-          height='100%'
+          fill="none"
+          width="100%"
+          height="100%"
           rx={rx}
           ry={ry}
           ref={pathRef}
@@ -148,8 +145,7 @@ export const MovingBorder = ({
         animate={{ opacity: 1 }}
         transition={{
           delay: 1,
-        }
-        }
+        }}
       >
         {children}
       </motion.div>

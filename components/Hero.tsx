@@ -4,6 +4,7 @@ import HeroImage from '@/public/hero-image.jpg';
 import { Spotlight } from './ui/Spotlight';
 import { easeInOut, motion } from 'framer-motion';
 import { HiOutlineLightningBolt } from 'react-icons/hi';
+import { useSectionInView } from '@/lib/hooks';
 
 // ****************************************************************
 
@@ -37,7 +38,7 @@ const Hero = () => {
         />
       </motion.div>
 
-      <div className="absolute w-full h-full  bg-black opacity-15"></div>
+      <div className="absolute w-full h-full  bg-black opacity-35"></div>
       <div
         className="absolute w-full h-full"
         style={{
@@ -47,7 +48,7 @@ const Hero = () => {
       ></div>
 
       {/* //*****************    HERO CONTENT WRAPPER    ***************** */}
-      <motion.div className="relative z-10 flex flex-col items-center justify-center h-full gap-8 ">
+      <motion.div className="relative z-10 flex flex-col items-center justify-center h-full gap-8 pt-12 ">
         <motion.div className="flex flex-col relative items-center justify-center gap-4">
           <motion.p
             initial={{ opacity: 0, y: 50 }}
@@ -55,27 +56,27 @@ const Hero = () => {
             transition={{
               duration: 0.3,
               delay: 0.2,
-              ease: easeInOut,
+              ease: 'easeInOut',
               type: 'spring',
               stiffness: 150,
               damping: 15,
             }}
-            className="uppercase tracking-widest md:w-[840px] lg:w-[1040px] text-sm text-center text-prime-200 font-normal leading-relaxed md:leading-normal lg:leading-normal"
+            className="uppercase tracking-[3px] text-base text-center text-white font-normal mb-8"
           >
-            Expert Logistics solutions
+            Expert Logistics Solutions
           </motion.p>
 
           <motion.h1
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: 2,
-              ease: easeInOut,
+              duration: 0.3,
+              ease: 'easeInOut',
               type: 'spring',
               stiffness: 150,
               damping: 15,
             }}
-            className="w-auto text-7xl sm:text-8xl text-center md:text-[84px] lg:text-[105px] text-white font-bold sm:w-[600px] md:w-[900px] lg:w-[1040px]"
+            className="w-auto text-7xl sm:text-8xl text-center md:text-[94px] lg:text-[105px] text-white font-bold sm:w-[600px] md:w-[900px] lg:w-[1040px] leading-[65px] sm:leading-[80px] md:leading-[80px] lg:leading-[90px]"
           >
             Reliable and timely
             <motion.span className="text-prime-200">
@@ -89,12 +90,12 @@ const Hero = () => {
             transition={{
               duration: 0.3,
               delay: 0.2,
-              ease: easeInOut,
+              ease: 'easeInOut',
               type: 'spring',
               stiffness: 150,
               damping: 15,
             }}
-            className="text-xl tracking-tight w-[500px] px-12 sm:text-2xl sm:w-[640px] md:text-2xl md:w-[740px] lg:w-[960px] py-3 text-center text-white text-opacity-85 font-light leading-relaxed md:leading-normal lg:leading-tight"
+            className="text-xl tracking-tight w-[500px] px-12 sm:text-xl md:text-2xl lg:text-2xl font-normal sm:w-[640px] md:w-[640px] lg:w-[820px] py-3 text-center text-slate-100 text-opacity-85 md:font-light leading-relaxed sm:leading-relaxed md:leading-snug lg:leading-tight"
           >
             With our expert brokerage services, we manage every detail to ensure
             your cargo reaches its destination safely, on time, and without
