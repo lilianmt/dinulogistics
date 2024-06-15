@@ -11,7 +11,7 @@ export default function Features() {
     <motion.section
       id="solutions"
       ref={ref}
-      className="h-[500px] z-100 text-white bg-black-200 top-0 left-0 text-xl"
+      className="h-[500px] z-100 text-white top-0 left-0 text-xl"
     >
       Solutions
     </motion.section>

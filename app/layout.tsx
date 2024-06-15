@@ -17,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="!scroll-smooth">
+      <body className="relative bg-black">
         <ActiveSectionContextProvider>
           <nav className="fixed z-[999] flex flex-col w-full items-center">
             <Navbar />

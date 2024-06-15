@@ -20,7 +20,7 @@ import Image from 'next/image';
 import Logo from '@/public/dinu-logistics-logo.png';
 import { IoClose } from 'react-icons/io5';
 import { TbMenuDeep } from 'react-icons/tb';
-import { BackgroundGradientAnimation } from './ui/BackgroundGradient';
+import { BackgroundGradientAnimation } from './ui/background-gradient';
 import { useActiveSectionContext } from '@/context/active-section-context';
 
 // interface NavItem {
@@ -192,15 +192,15 @@ export default function Navbar() {
           <Image src={Logo} alt="Logo" width={150} />
         </motion.a>
 
-        <motion.nav className="hidden md:flex-row md:flex w-2/3 items-center justify-end text-lg font-light tracking-widest">
-          {/* Links */}
+        <motion.nav className="hidden md:flex-row md:flex w-2/3 items-center justify-end text-lg font-normal transition-all ease-in-out duration-300 tracking-widest">
+          {/*********************************** Links ***********************************/}
           <motion.ul className="flex flex-nowrap gap-12">
             {links
               .filter((link) => link.name !== 'Home')
               .map((link) => (
                 <motion.li
                   key={link.hash}
-                  className="flex items-center justify-center relative "
+                  className="flex items-center justify-center relative transition-all ease-in-out "
                 >
                   <Link
                     href={link.hash}
@@ -209,9 +209,9 @@ export default function Navbar() {
                       setTimeOfLastClick(Date.now());
                     }}
                     className={cn(
-                      'flex text-white py-3 transition-all ease-in-out duration-50 hover:text-prime-500 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-300',
+                      'flex text-white py-3 transition-all ease-in-out duration-10 hover:text-prime-200 hover:text-shadow-white hover:border-b-[1px] hover:border-prime-200',
                       {
-                        'text-prime-200 font-medium':
+                        'text-prime-300 hover:text-white':
                           activeSection === link.name,
                       }
                     )}
@@ -236,7 +236,7 @@ export default function Navbar() {
             {/************************************** Button **************************************/}
 
             <motion.button
-              className="group relative flex items-center justify-center py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-in-out duration-300 hover:text-prime-200 hover:border-white/75 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+              className="group relative flex items-center justify-center py-4 px-5 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-in-out duration-300 hover:text-prime-200 hover:border-white/75 hover:rounded-3xl hover:shadow-lg hover:shadow-prime-600/[0.3]  active:rounded-3xl will-change-transform origin-center;"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
@@ -296,9 +296,9 @@ export default function Navbar() {
                   key={link.hash}
                   href={link.hash}
                   className={cn(
-                    'flex flex-col text-white/75 items-center tracking-wider font-normal text-lg py-8 border-b transition-all border-prime-100/50 hover:text-white/1 hover:border-prime-200/100 hover:text-prime-200/100',
+                    'flex flex-col text-white/75 items-center tracking-wider font-normal text-lg py-8 border-b transition-all border-prime-100/50 hover:text-white/1 hover:border-prime-200/100 hover:text-white/100',
                     {
-                      'text-prime-300 border-prime-300 hover:text-prime-200':
+                      'text-prime-300 border-white hover:border-prime-300 hover:text-white':
                         activeSection === link.name,
                     }
                   )}
@@ -312,7 +312,7 @@ export default function Navbar() {
                 </Link>
               ))}
             <motion.button
-              className="group relative flex items-center justify-center mt-12 mb-6 py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-out duration-300 hover:text-prime-200 hover:border-white/75 hover:rounded-3xl active:rounded-3xl will-change-transform origin-center;"
+              className="group relative flex items-center justify-center mt-12 mb-6 py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-out duration-300 hover:text-prime-200 hover:border-white/75 hover:rounded-3xl hover:shadow-lg hover:shadow-white/[0.2]  active:rounded-3xl will-change-transform origin-center;"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
