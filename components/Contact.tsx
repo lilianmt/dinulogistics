@@ -4,7 +4,6 @@ import React from 'react';
 import SectionHeading from './ui/SectionHeading';
 import { motion } from 'framer-motion';
 import { useSectionInView } from '@/lib/hooks';
-import { BackgroundBeams } from './ui/background-beams';
 
 export default function Contact() {
   const { ref } = useSectionInView('Contact');
@@ -28,13 +27,13 @@ export default function Contact() {
       }}
     >
       <motion.div>
-        <motion.div className="relative px-10 py-12 z-[100] flex flex-col bg-gradient-to-br from-prime-500/5 to-prime-600/20 backdrop-blur-[3px] rounded-3xl">
+        <motion.div className="relative px-10 py-12 z-[100] flex flex-col bg-gradient-to-br from-prime-800/25 to-prime-900/35 backdrop-blur-[3px] rounded-3xl">
           <SectionHeading>
             <motion.span className="text-4xl font-light">
               Contact us
             </motion.span>
           </SectionHeading>
-          <p className="text-white/50 -mt-6">
+          <p className="text-white/50 -mt-4">
             Please contact us directly at{' '}
             <a className="underline" href="mailto:contact@dinulogistics.com">
               contact@dinulogistics.com
@@ -72,7 +71,6 @@ export default function Contact() {
             />
           </form>
         </motion.div>
-        <BackgroundBeams />
       </motion.div>
     </motion.section>
   );

@@ -118,7 +118,7 @@ const Hero = () => {
             delay: 0.4,
             ease: easeInOut,
           }}
-          className="group relative flex items-center justify-center h-[4rem] w-[12rem] gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:backdrop-blur-lg  hover:rounded-3xl ] hover:shadow-lg hover:shadow-prime-600/[0.3]  active:rounded-3xl will-change-transform origin-center;"
+          className="group relative flex items-center justify-center h-[4rem] w-[12rem] gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all hover:text-prime-200 hover:backdrop-blur-md  hover:rounded-3xl hover:shadow-lg hover:shadow-prime-600/[0.3]  active:rounded-3xl will-change-transform origin-center;"
           style={{ backfaceVisibility: 'hidden' }}
         >
           <motion.span className="absolute inset-0 overflow-hidden rounded-xl">

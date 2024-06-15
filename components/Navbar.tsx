@@ -312,7 +312,7 @@ export default function Navbar() {
                 </Link>
               ))}
             <motion.button
-              className="group relative flex items-center justify-center mt-12 mb-6 py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-out duration-300 hover:text-prime-200 hover:border-white/75 hover:rounded-3xl hover:shadow-lg hover:shadow-white/[0.2]  active:rounded-3xl will-change-transform origin-center;"
+              className="group relative flex items-center justify-center mt-12 mb-6 py-4 px-6 gap-2 bg-transparent outline-none rounded-2xl border border-white/75 font-normal text-lg text-white tracking-wider backdrop-blur-sm transition-all ease-out duration-300 hover:text-prime-200 hover:border-white/ hover:rounded-3xl hover:shadow-lg hover:shadow-prime-600/[0.3]  active:rounded-3xl will-change-transform origin-center;"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <motion.span className="absolute inset-0 overflow-hidden rounded-xl">
