@@ -27,7 +27,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
-  const toggleOpen = () => setOpen((prev) => !prev);
+  const toggleOpen = useCallback(() => setOpen((prev) => !prev), [setOpen]);
 
   const updateMenuPosition = useCallback(() => {
     if (hamburgerRef.current) {
@@ -57,7 +57,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [open]);
+  }, [open, setOpen]);
 
   return (
     <>
