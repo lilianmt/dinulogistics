@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import ActiveSectionContextProvider from '@/context/active-section-context';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
             <Navbar />
           </nav>
           {children}
+          <Toaster position="bottom-right" reverseOrder={false} />
         </ActiveSectionContextProvider>
       </body>
     </html>
