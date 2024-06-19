@@ -32,12 +32,10 @@ export default function Contact() {
       <motion.div>
         <motion.div className="relative px-10 py-12 z-[100] flex flex-col bg-gradient-to-br from-prime-800/25 to-prime-900/35 backdrop-blur-[3px] rounded-3xl">
           <SectionHeading>
-            <motion.span className="text-4xl font-light">
-              Contact us
-            </motion.span>
+            <motion.span className="text-4xl font-light">Enquire</motion.span>
           </SectionHeading>
           <p className="text-white/50 -mt-4">
-            Please contact us directly at{' '}
+            Contact us directly at{' '}
             <a className="underline" href="mailto:contact@dinulogistics.com">
               contact@dinulogistics.com
             </a>{' '}
