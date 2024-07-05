@@ -136,7 +136,7 @@ const Hero = () => {
             className="relative text-white group-hover:text-shadow-white will-change-transform text-nowrap"
             style={{ textRendering: 'optimizeLegibility' }}
           >
-            Contact us
+            Get in touch
           </motion.a>
         </motion.button>
       </motion.div>
