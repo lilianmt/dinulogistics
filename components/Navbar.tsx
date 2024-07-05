@@ -172,7 +172,7 @@ export default function Navbar() {
                 </motion.li>
               ))}
             {/************************************** Button **************************************/}
-            <NavButton />
+            {/* <NavButton /> */}
           </motion.ul>
         </motion.nav>
 

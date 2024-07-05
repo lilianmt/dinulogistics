@@ -7,6 +7,7 @@ import { useSectionInView } from '@/lib/hooks';
 import SubmitButton from './ui/SubmitButton';
 import { sendEmail } from '@/actions/sendEmail';
 import toast from 'react-hot-toast';
+import DottedBackground from './ui/dotted-background';
 
 export default function Contact() {
   const { ref } = useSectionInView('Contact');
@@ -15,7 +16,7 @@ export default function Contact() {
     <motion.section
       id="contact"
       ref={ref}
-      className="relative w-[min(100%,100%)] py-20 flex flex-col items-center text-center"
+      className="relative w-[min(100%,100%)] h-full flex flex-col items-center text-center bg-prime-900"
       initial={{
         opacity: 0,
       }}
@@ -29,8 +30,9 @@ export default function Contact() {
         once: true,
       }}
     >
+      <DottedBackground />
       <motion.div>
-        <motion.div className="relative px-10 py-12 z-[100] flex flex-col bg-gradient-to-br from-prime-800/25 to-prime-900/35 backdrop-blur-[3px] rounded-3xl">
+        <motion.div className="relative mt-24 mb-24 px-10 py-12 z-[100] flex flex-col bg-gradient-to-br from-prime-800/25 to-prime-900/35 backdrop-blur-[3px] rounded-3xl">
           <SectionHeading>
             <motion.span className="text-4xl font-light">
               Contact us now

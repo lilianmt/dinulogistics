@@ -15,7 +15,7 @@ export default function Features() {
     <motion.section
       id="solutions"
       ref={ref}
-      className="relative w-full h-auto bg-prime-900"
+      className="relative w-full h-full bg-prime-900"
     >
       <DottedBackground />
       {/* //*****************    SECTION TITLES    ***************** */}
