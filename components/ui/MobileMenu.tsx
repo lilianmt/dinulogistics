@@ -115,10 +115,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   {link.name}
                 </Link>
               ))}
-            <motion.div className="mt-12 mb-6">
-              <NavButton />
-              <BackgroundGradientAnimation />
-            </motion.div>
+            {/* <motion.div className="mt-12 mb-6">
+              <NavButton /> */}
+            <BackgroundGradientAnimation />
+            {/* </motion.div> */}
           </motion.div>
         )}
       </AnimatePresence>
